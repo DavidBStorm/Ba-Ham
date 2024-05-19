@@ -1,4 +1,4 @@
-package com.task_baham.viewModel
+package com.task_baham.viewModel.main
 
 import android.content.Context
 import android.content.SharedPreferences

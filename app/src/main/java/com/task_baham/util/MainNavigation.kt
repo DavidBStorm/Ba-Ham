@@ -7,8 +7,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.task_baham.viewModel.MainViewModel
+import com.task_baham.ui.composable.HomeScreen
+import com.task_baham.viewModel.home.HomeViewModel
+import com.task_baham.viewModel.main.MainViewModel
 
 
 sealed class Screens(val route: String) {
@@ -24,7 +27,7 @@ sealed class Screens(val route: String) {
 fun MainNavigation(
     paddingValues: PaddingValues,
 ) {
-    val homeViewModel: MainViewModel = hiltViewModel()
+    val homeViewModel: HomeViewModel = hiltViewModel()
 
 
     NavHost(
@@ -32,9 +35,9 @@ fun MainNavigation(
         startDestination = Screens.Home.route,
         modifier = Modifier.padding(0.dp, 0.dp, 0.dp, paddingValues.calculateBottomPadding().div(2))
     ) {
-//        composable(Screens.Home.route) {
-//            HomeScreen(navController, scaffoldState, homeViewModel, quickAccessViewModel)
-//        }
+        composable(Screens.Home.route) {
+            HomeScreen(homeViewModel)
+        }
 //        composable(Screens.Trade.route) {
 //            TradeScreen(navController, tradeViewModel)
 //        }
