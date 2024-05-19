@@ -3,6 +3,9 @@ package com.task_baham.util
 import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.unit.dp
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.task_baham.ui.activities.MainActivity
@@ -32,3 +35,6 @@ fun requestPermission(
         else ->  permissionDenied.invoke()
     }
 }
+
+@Composable
+fun getWidthOfScreenInDp() = LocalConfiguration.current.screenWidthDp.dp
