@@ -21,6 +21,7 @@ import androidx.core.content.ContextCompat
 import com.task_baham.ui.composable.universal.DisplayPermissionNeed
 import com.task_baham.ui.theme.Task_BahamTheme
 import com.task_baham.util.MainNavigation
+import com.task_baham.util.requestPermission
 import com.task_baham.viewModel.main.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -60,29 +61,17 @@ class MainActivity : ComponentActivity() {
             }
 
         }
-        requestCameraPermission()
-    }
 
-    private fun requestCameraPermission() {
-        when {
-            ContextCompat.checkSelfPermission(
-                this,
-                Manifest.permission.READ_EXTERNAL_STORAGE
-            ) == PackageManager.PERMISSION_GRANTED -> {
+        requestPermission(
+            activity = this,
+            permissionGranted = {
                 isPermissionGranted.value = true
-            }
 
-            ActivityCompat.shouldShowRequestPermissionRationale(
-                this,
-                Manifest.permission.READ_EXTERNAL_STORAGE
-            ) -> {
-
+            }, permissionDenied = {
                 requestPermissionLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
-            }
 
-
-            else -> requestPermissionLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
-        }
+            })
     }
+
 
 }
