@@ -1,8 +1,10 @@
 package com.task_baham.repository
 
 import android.app.Application
+import android.util.Log
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
+import androidx.paging.liveData
 import com.task_baham.model.MediaPagingSource
 
 import javax.inject.Inject
@@ -15,7 +17,6 @@ class MediaRepository @Inject constructor(
             pageSize = 50
         ),
         pagingSourceFactory = {
-
             MediaPagingSource(application)
         }
     ).flow
