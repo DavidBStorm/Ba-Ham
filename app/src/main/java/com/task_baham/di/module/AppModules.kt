@@ -1,6 +1,8 @@
 package com.task_baham.di.module
 
+import android.app.Application
 import android.content.Context
+import com.task_baham.repository.MediaRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -14,5 +16,6 @@ import javax.inject.Singleton
 object AppModules {
 
 //add your dependencies here
-
+@Provides
+fun provideMediaRepository(application: Application): MediaRepository = MediaRepository(application)
 }
