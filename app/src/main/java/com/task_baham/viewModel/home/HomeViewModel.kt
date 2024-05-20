@@ -20,6 +20,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import java.io.File
 import javax.inject.Inject
 
 
@@ -31,7 +32,7 @@ class HomeViewModel @Inject constructor(
 
 
 
-    fun getMedia(): Flow<PagingData<Uri>> = mediaPagingSource.getMedia().cachedIn(viewModelScope)
+    fun getMedia(): Flow<PagingData<File>> = mediaPagingSource.getMedia().cachedIn(viewModelScope)
 
     fun getAppContext(): Context = application.applicationContext
     fun getApp() = application

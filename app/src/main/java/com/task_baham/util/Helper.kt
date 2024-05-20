@@ -5,6 +5,8 @@ import android.app.Application
 import android.content.ContentUris
 import android.content.Context
 import android.content.pm.PackageManager
+import android.database.Cursor
+import android.database.MergeCursor
 import android.net.Uri
 import android.provider.MediaStore
 import android.util.Log
@@ -14,6 +16,9 @@ import androidx.compose.ui.unit.dp
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.task_baham.ui.activities.MainActivity
+import java.io.File
+import java.util.Locale
+
 
 fun requestPermission(
     activity: MainActivity,
@@ -33,20 +38,21 @@ fun requestPermission(
             Manifest.permission.READ_EXTERNAL_STORAGE
         ) -> {
 
-          permissionDenied.invoke()
+            permissionDenied.invoke()
         }
 
 
-        else ->  permissionDenied.invoke()
+        else -> permissionDenied.invoke()
     }
 }
 
 @Composable
 fun getWidthOfScreenInDp() = LocalConfiguration.current.screenWidthDp.dp
+
 @Composable
 fun getHeightOfScreenInDp() = LocalConfiguration.current.screenHeightDp.dp
 
- fun getAllMediaInStorage(application: Application): List<Uri> {
+fun getAllMediaInStorage(application: Application): List<Uri> {
     val allImages = mutableListOf<Uri>()
 
     val imageProjection = arrayOf(
@@ -79,6 +85,104 @@ fun getHeightOfScreenInDp() = LocalConfiguration.current.screenHeightDp.dp
             Log.d("AddViewModel", "Cursor is null!")
         }
     }
-     Log.e("TAG", "getAllMediaInStorage: $allImages ")
+    Log.e("TAG", "getAllMediaInStorage: $allImages ")
     return allImages
+}
+
+fun getAllMediaInStorageV2(application: Application): List<Uri> {
+    val allImages = mutableListOf<Uri>()
+
+    val imageProjection = arrayOf(
+        MediaStore.Images.Media._ID
+    )
+
+    val imageSortOrder = "${MediaStore.Images.Media.DATE_ADDED} DESC"
+
+    val cursor = application.contentResolver.query(
+        MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+        imageProjection,
+        null,
+        null,
+        imageSortOrder
+    )
+
+    cursor.use {
+
+        if (cursor != null) {
+            val idColumn = cursor.getColumnIndexOrThrow(MediaStore.Images.Media._ID)
+            while (cursor.moveToNext()) {
+                allImages.add(
+                    ContentUris.withAppendedId(
+                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                        cursor.getLong(idColumn)
+                    )
+                )
+            }
+        } else {
+            Log.d("AddViewModel", "Cursor is null!")
+        }
+    }
+    return allImages
+}
+
+fun getAllMediaFilesOnDevice(context: Application): List<File> {
+    val files: MutableList<File> = ArrayList()
+    try {
+        val columns = arrayOf(
+            MediaStore.Images.Media.DATA,
+            MediaStore.Images.Media.DATE_ADDED,
+            MediaStore.Images.Media.BUCKET_ID,
+            MediaStore.Images.Media.BUCKET_DISPLAY_NAME
+        )
+        val cursor = MergeCursor(
+            arrayOf(
+                context.contentResolver.query(
+                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                    columns,
+                    null,
+                    null,
+                    "${MediaStore.Images.Media.DATE_ADDED} DESC"
+                ),
+                context.contentResolver.query(
+                    MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
+                    columns,
+                    null,
+                    null,
+                    "${MediaStore.Video.Media.DATE_ADDED} DESC"
+                ),
+                context.contentResolver.query(
+                    MediaStore.Images.Media.INTERNAL_CONTENT_URI,
+                    columns,
+                    null,
+                    null,
+                    "${MediaStore.Images.Media.DATE_ADDED} DESC"
+                ),
+                context.contentResolver.query(
+                    MediaStore.Video.Media.INTERNAL_CONTENT_URI,
+                    columns,
+                    null,
+                    null,
+                    "${MediaStore.Video.Media.DATE_ADDED} DESC"
+                )
+            )
+        )
+        cursor.moveToFirst()
+        files.clear()
+        while (!cursor.isAfterLast) {
+            var path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA))
+            val lastPoint = path.lastIndexOf(".")
+            path = path.substring(0, lastPoint) + path.substring(lastPoint)
+                .lowercase(Locale.getDefault())
+            files.add(File(path))
+            cursor.moveToNext()
+//            val idColumn = cursor.getColumnIndexOrThrow()
+//            ContentUris.withAppendedId(
+//                MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
+//                cursor.getLong(idColumn)
+//            )
+        }
+    } catch (e: Exception) {
+        e.printStackTrace()
+    }
+    return files
 }
