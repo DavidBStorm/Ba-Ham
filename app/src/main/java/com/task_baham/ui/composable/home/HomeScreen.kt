@@ -30,18 +30,12 @@ import java.io.File
 @RequiresApi(Build.VERSION_CODES.Q)
 @Composable
 fun HomeScreen(homeViewModel: HomeViewModel) {
-    Log.e("TAG", "HomeScreen:  ")
-    LaunchedEffect(Unit) {
-//        homeViewModel.getMedia()
-    }
+
 
     val media = remember { homeViewModel.getMedia() }
     val mediaLazyItems = media.collectAsLazyPagingItems()
 
-//    val mediaLazyItems = homeViewModel.getMedia().collectAsLazyPagingItems()
 
-//    val a =  getAllMediaFilesOnDevice(homeViewModel.getApp())
-    Log.e("TAG", "HomeScreen: -- ${mediaLazyItems.itemCount}")
     Column(Modifier.fillMaxSize()) {
         Spacer(modifier = Modifier.height(150.dp))
 
