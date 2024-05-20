@@ -38,3 +38,5 @@ fun requestPermission(
 
 @Composable
 fun getWidthOfScreenInDp() = LocalConfiguration.current.screenWidthDp.dp
+@Composable
+fun getHeightOfScreenInDp() = LocalConfiguration.current.screenHeightDp.dp
