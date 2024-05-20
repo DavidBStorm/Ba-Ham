@@ -9,9 +9,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.task_baham.ui.composable.HomeScreen
+import com.task_baham.ui.composable.home.HomeScreen
 import com.task_baham.viewModel.home.HomeViewModel
-import com.task_baham.viewModel.main.MainViewModel
 
 
 sealed class Screens(val route: String) {

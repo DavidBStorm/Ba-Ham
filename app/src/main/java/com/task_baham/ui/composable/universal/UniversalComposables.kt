@@ -1,8 +1,5 @@
 package com.task_baham.ui.composable.universal
 
-import android.graphics.drawable.AnimationDrawable
-import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -24,10 +21,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.viewinterop.AndroidView
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
-import com.task.baham.R
+import com.task_baham.util.LoadingTxt
 import com.task_baham.util.PermissionDeniedText
 import com.task_baham.util.getWidthOfScreenInDp
 
@@ -52,8 +48,27 @@ fun DisplayPermissionNeed(onRetryClicked: () -> Unit) {
 }
 
 @Composable
-fun DisplayProgressbar(state: State<Boolean>) {
+fun DisplayLoading() {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center,
+    ) {
+        Text(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp), textAlign = TextAlign.Center,
+            text = LoadingTxt
+        )
 
+        CircularProgressIndicator(color = Color.Black,)
+    }
+
+}
+
+@Composable
+fun DisplayProgressBarV2(state: State<Boolean>) {
     if (state.value) {
         Dialog(
             onDismissRequest = { state.value },
