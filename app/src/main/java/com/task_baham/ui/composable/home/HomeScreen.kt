@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -19,7 +20,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.navigation.NavHostController
+import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
+import com.task_baham.ui.composable.universal.DisplayLoading
 import com.task_baham.util.GridItemSpan
 import com.task_baham.util.NavigationKey
 import com.task_baham.util.PickerTxtForDisplay
@@ -82,13 +85,25 @@ fun HomeScreen(homeViewModel: HomeViewModel, navController: NavHostController) {
                 )
 
             }
-            item {
+            when (mediaLazyItems.loadState.refresh) { //FIRST LOAD
+                is LoadState.Loading -> {
+                    item(span = { GridItemSpan(GridItemSpan) }) {
+                        DisplayLoading()
+                    }
+                }
 
-                DisplayLoadingDependOnState(
-                    mediaLazyItems = mediaLazyItems,
-                    lazyGridScope = this@LazyVerticalGrid
-                )
+                else -> {}
+            }
 
+            when (mediaLazyItems.loadState.append) { // Pagination
+                is LoadState.Loading -> {
+                    item(span = { GridItemSpan(GridItemSpan) }) {
+                        DisplayLoading()
+
+                    }
+                }
+
+                else -> {}
             }
 
 
