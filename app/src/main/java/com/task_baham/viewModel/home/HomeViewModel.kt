@@ -29,7 +29,7 @@ class HomeViewModel @Inject constructor(
     private val application: MyApplication,
     private val mediaPagingSource: MediaRepository,
 ) : ViewModel() {
-
+    private var mediaFlow: Flow<PagingData<File>> = mediaPagingSource.getMedia()
 
 
     fun getMedia(): Flow<PagingData<File>> = mediaPagingSource.getMedia().cachedIn(viewModelScope)

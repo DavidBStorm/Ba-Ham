@@ -27,8 +27,8 @@ import java.util.concurrent.ThreadLocalRandom
 import kotlin.random.Random
 
 @Composable
-fun ImageScreen(navController: NavHostController) {
-    var backButtonPressed = remember { mutableStateOf(false) }
+fun ImageScreen(file: File?= null) {
+    val backButtonPressed = remember { mutableStateOf(false) }
 
     val endRand = remember {
         Random.nextFloat()
@@ -43,10 +43,6 @@ fun ImageScreen(navController: NavHostController) {
         val (gif, image) = createRefs()
 
 
-        val backStackEntry = navController.previousBackStackEntry
-        val savedStateHandle = backStackEntry?.savedStateHandle
-        val filePath = File(savedStateHandle?.get<String>(NavigationKey) ?: "")
-
         AsyncImage(
             modifier = Modifier
                 .constrainAs(image) {
@@ -57,7 +53,7 @@ fun ImageScreen(navController: NavHostController) {
                 }
                 .fillMaxSize()
                 .padding(0.5.dp),
-            model = filePath,
+            model = file,
             contentDescription = ContentDescriptionThumbs,
             contentScale = ContentScale.Inside
         )
@@ -94,9 +90,5 @@ fun ImageScreen(navController: NavHostController) {
         )
 
     }
-    BackHandler {
-        backButtonPressed.value = true
 
-        navController.popBackStack()
-    }
 }

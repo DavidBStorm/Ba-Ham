@@ -16,7 +16,9 @@ class MediaRepository @Inject constructor(
         config = PagingConfig(
             pageSize = 50
         ),
+        initialKey = 1,
         pagingSourceFactory = {
+            Log.e("TAG", "getMedia:  in factory")
             MediaPagingSource(application)
         }
     ).flow

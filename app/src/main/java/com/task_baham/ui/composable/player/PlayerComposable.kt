@@ -34,19 +34,13 @@ import java.io.File
 
 @OptIn(UnstableApi::class)
 @Composable
-fun VideoPlayer(modifier: Modifier = Modifier, file: File, navController: NavController) {
+fun VideoPlayer(modifier: Modifier = Modifier, file: File) {
     val context = LocalContext.current
     val exoPlayer = remember {
         ExoPlayer.Builder(context).build().apply {
             this.prepare()
         }
     }
-    BackHandler {
-
-        exoPlayer.release()
-        navController.popBackStack()
-    }
-
 
     ConstraintLayout(modifier = modifier.background(Color.LightGray)) {
         val (title, videoPlayer) = createRefs()

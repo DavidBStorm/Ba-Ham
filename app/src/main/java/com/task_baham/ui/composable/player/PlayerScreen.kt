@@ -14,17 +14,14 @@ import com.task_baham.util.NavigationKey
 import java.io.File
 
 @Composable
-fun PlayerScreen(navController: NavHostController) {
+fun PlayerScreen(file: File? = null) {
 
-    val backStackEntry = navController.previousBackStackEntry
-    val savedStateHandle = backStackEntry?.savedStateHandle
-    val file = File(savedStateHandle?.get<String>(NavigationKey) ?: "")
 
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.LightGray)
     ) {
-        VideoPlayer(file = file, navController = navController)
+        VideoPlayer(file = file!!)
     }
 }

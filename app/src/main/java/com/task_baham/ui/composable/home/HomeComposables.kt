@@ -59,7 +59,7 @@ fun DisplayThumbs(
 
             val bitmap = ThumbnailUtils.createVideoThumbnail(
                 item.path,
-                MediaStore.Video.Thumbnails.MICRO_KIND
+                MediaStore.Video.Thumbnails.MINI_KIND
             )
 
             AsyncImage(

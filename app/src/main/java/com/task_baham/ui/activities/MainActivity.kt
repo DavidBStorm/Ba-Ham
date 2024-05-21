@@ -40,7 +40,6 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        enableEdgeToEdge()
         setContent {
             Task_BahamTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
@@ -48,7 +47,10 @@ class MainActivity : ComponentActivity() {
                     Column(Modifier.fillMaxSize()) {
 
                         if (isPermissionGranted.value)
-                            MainNavigation(paddingValues = innerPadding)
+                            MainNavigation(
+                                paddingValues = innerPadding,
+                                mainActivity = this@MainActivity
+                            )
                         else
                             DisplayPermissionNeed(onRetryClicked = {
                                 requestPermissionLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)

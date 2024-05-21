@@ -9,6 +9,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.task_baham.ui.activities.MainActivity
 import com.task_baham.ui.composable.home.HomeScreen
 import com.task_baham.ui.composable.image.ImageScreen
 import com.task_baham.ui.composable.player.PlayerScreen
@@ -27,6 +28,7 @@ sealed class Screens(val route: String) {
 @Composable
 fun MainNavigation(
     paddingValues: PaddingValues,
+    mainActivity: MainActivity
 ) {
     val homeViewModel: HomeViewModel = hiltViewModel()
     val navController = rememberNavController()
@@ -37,14 +39,9 @@ fun MainNavigation(
         modifier = Modifier.padding(0.dp, 0.dp, 0.dp, paddingValues.calculateBottomPadding().div(2))
     ) {
         composable(Screens.Home.route) {
-            HomeScreen(homeViewModel, navController)
+            HomeScreen(homeViewModel,mainActivity)
         }
-        composable(Screens.VideoPlayer.route) {
-            PlayerScreen(navController)
-        }
-        composable(Screens.ImageDisplay.route) {
-            ImageScreen(navController)
-        }
+            // add more screen here if we want to use navigation
 
 
     }

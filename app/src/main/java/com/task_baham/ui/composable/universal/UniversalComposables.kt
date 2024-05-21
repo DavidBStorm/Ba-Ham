@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -25,6 +26,8 @@ import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import com.task_baham.util.LoadingTxt
 import com.task_baham.util.PermissionDeniedText
+import com.task_baham.util.PickerTxtForDisplay
+import com.task_baham.util.getHeightOfScreenInDp
 import com.task_baham.util.getWidthOfScreenInDp
 
 @Composable
@@ -66,6 +69,24 @@ fun DisplayLoading() {
     }
 
 }
+@Composable
+fun DisplayTextAboveList() {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(getHeightOfScreenInDp().div(6))
+            .background(Color.White),
+    ) {
+
+        Text(
+            text = PickerTxtForDisplay,
+            modifier = Modifier
+                .align(Alignment.Center),
+            textAlign = TextAlign.Center
+        )
+
+    }
+}
 
 @Composable
 fun DisplayProgressBarV2(state: State<Boolean>) {
@@ -88,7 +109,7 @@ fun DisplayProgressBarV2(state: State<Boolean>) {
                 )
                 Spacer(modifier = Modifier.size(10.dp))
                 androidx.compose.material.Text(
-                    text = "لطفا چند لحظه صبر کنید!!",
+                    text = "Please wait ... ",
                     modifier = Modifier.align(Alignment.CenterHorizontally)
                 )
 
