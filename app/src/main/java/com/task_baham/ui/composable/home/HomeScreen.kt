@@ -1,6 +1,7 @@
 package com.task_baham.ui.composable.home
 
 import android.os.Build
+import android.os.Bundle
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -20,6 +21,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.navigation.NavHostController
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.task_baham.util.GridItemSpan
+import com.task_baham.util.NavigationKey
 import com.task_baham.util.PickerTxtForDisplay
 import com.task_baham.util.Screens
 import com.task_baham.util.getHeightOfScreenInDp
@@ -27,7 +29,6 @@ import com.task_baham.util.isVideo
 import com.task_baham.viewModel.home.HomeViewModel
 
 
-@RequiresApi(Build.VERSION_CODES.Q)
 @Composable
 fun HomeScreen(homeViewModel: HomeViewModel, navController: NavHostController) {
 
@@ -70,7 +71,13 @@ fun HomeScreen(homeViewModel: HomeViewModel, navController: NavHostController) {
                     index = it,
                     appContext = homeViewModel.getAppContext(),
                     onItemClick = { file ->
-                        navController.navigate(if (file.isVideo()) Screens.VideoPlayer.route else Screens.ImageDisplay.route)
+                        val backStackEntry = navController.currentBackStackEntry
+                        val savedStateHandle = backStackEntry?.savedStateHandle
+                        savedStateHandle?.set(NavigationKey, file.path)
+
+                        navController.navigate(
+                            if (file.isVideo()) Screens.VideoPlayer.route else Screens.ImageDisplay.route,
+                        )
                     }
                 )
 

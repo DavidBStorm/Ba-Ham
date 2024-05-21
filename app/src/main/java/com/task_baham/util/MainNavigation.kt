@@ -40,10 +40,10 @@ fun MainNavigation(
             HomeScreen(homeViewModel, navController)
         }
         composable(Screens.VideoPlayer.route) {
-            PlayerScreen()
+            PlayerScreen(navController)
         }
         composable(Screens.ImageDisplay.route) {
-            ImageScreen()
+            ImageScreen(navController)
         }
 
 
