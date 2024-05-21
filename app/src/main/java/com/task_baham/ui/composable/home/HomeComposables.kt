@@ -37,7 +37,12 @@ import com.task_baham.util.isVideo
 import java.io.File
 
 @Composable
-fun DisplayThumbs(mediaLazyItems: LazyPagingItems<File>, index: Int, appContext: Context) {
+fun DisplayThumbs(
+    mediaLazyItems: LazyPagingItems<File>,
+    index: Int,
+    appContext: Context,
+    onItemClick: (File) -> Unit
+) {
     val item = mediaLazyItems.itemSnapshotList.items[index]
     Box(
         modifier = Modifier
@@ -45,7 +50,7 @@ fun DisplayThumbs(mediaLazyItems: LazyPagingItems<File>, index: Int, appContext:
             .height(getHeightOfScreenInDp().div(5))
             .background(Color.Green)
             .clickable {
-                Log.e("TAG", "HomeScreen: ${item.name}")
+                onItemClick.invoke(item)
             }
     ) {
 

@@ -10,13 +10,15 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.task_baham.ui.composable.home.HomeScreen
+import com.task_baham.ui.composable.image.ImageScreen
+import com.task_baham.ui.composable.player.PlayerScreen
 import com.task_baham.viewModel.home.HomeViewModel
 
 
 sealed class Screens(val route: String) {
     object Home : Screens("home")
-    object Player : Screens("player")
-
+    object VideoPlayer : Screens("player")
+    object ImageDisplay : Screens("image")
 
 
 }
@@ -27,19 +29,22 @@ fun MainNavigation(
     paddingValues: PaddingValues,
 ) {
     val homeViewModel: HomeViewModel = hiltViewModel()
-
+    val navController = rememberNavController()
 
     NavHost(
-        navController = rememberNavController(),
+        navController = navController,
         startDestination = Screens.Home.route,
         modifier = Modifier.padding(0.dp, 0.dp, 0.dp, paddingValues.calculateBottomPadding().div(2))
     ) {
         composable(Screens.Home.route) {
-            HomeScreen(homeViewModel)
+            HomeScreen(homeViewModel, navController)
         }
-//        composable(Screens.Trade.route) {
-//            TradeScreen(navController, tradeViewModel)
-//        }
+        composable(Screens.VideoPlayer.route) {
+            PlayerScreen()
+        }
+        composable(Screens.ImageDisplay.route) {
+            ImageScreen()
+        }
 
 
     }

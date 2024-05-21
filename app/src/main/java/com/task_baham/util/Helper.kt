@@ -109,5 +109,7 @@ fun getAllMediaFilesOnDevice(context: Application): List<File> {
     } catch (e: Exception) {
         e.printStackTrace()
     }
-    return files.sortedByDescending { it.lastModified() }
+    val uniqueFiles = files.toSet().toList()
+
+    return uniqueFiles.sortedByDescending { it.lastModified() }
 }
