@@ -8,8 +8,6 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.task_baham.util.getAllMediaFilesOnDevice
-import com.task_baham.util.getAllMediaInStorage
-import com.task_baham.util.getAllMediaInStorageV2
 import kotlinx.coroutines.delay
 import java.io.File
 
