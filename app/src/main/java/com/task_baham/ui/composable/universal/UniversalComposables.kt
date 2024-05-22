@@ -89,7 +89,7 @@ fun DisplayTextAboveList() {
 }
 
 @Composable
-fun DisplayProgressBarV2(state: State<Boolean>) {
+fun DisplayProgressBar(state: State<Boolean>) {
     if (state.value) {
         Dialog(
             onDismissRequest = { state.value },

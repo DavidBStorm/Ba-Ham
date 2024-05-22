@@ -26,6 +26,7 @@ import androidx.compose.ui.unit.dp
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import coil.compose.AsyncImage
+import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import com.task.baham.R
 import com.task_baham.ui.composable.universal.DisplayLoading
@@ -74,15 +75,15 @@ fun DisplayThumbs(
             val model = ImageRequest.Builder(appContext)
                 .data(item)
                 .build()
-
-            AsyncImage(
+            Image(
+                painter = rememberAsyncImagePainter(model),
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(0.5.dp),
-                model = model,
                 contentDescription = ContentDescriptionThumbs,
                 contentScale = ContentScale.Crop
             )
+
         }
 
         Image(

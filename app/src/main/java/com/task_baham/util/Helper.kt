@@ -9,6 +9,7 @@ import android.content.pm.PackageManager
 import android.database.Cursor
 import android.database.MergeCursor
 import android.net.Uri
+import android.os.Build
 import android.provider.MediaStore
 import android.util.Log
 import androidx.compose.runtime.Composable
@@ -113,3 +114,5 @@ fun getAllMediaFilesOnDevice(context: Application): List<File> {
     val uniqueFiles = files.associateBy { it.name }.values.toList()
     return uniqueFiles.sortedByDescending { it.lastModified() }
 }
+
+fun isAndroid13Above() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU

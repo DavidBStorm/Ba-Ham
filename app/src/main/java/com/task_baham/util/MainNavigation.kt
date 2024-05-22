@@ -30,7 +30,7 @@ fun MainNavigation(
     paddingValues: PaddingValues,
     mainActivity: MainActivity
 ) {
-    val homeViewModel: HomeViewModel = hiltViewModel()
+
     val navController = rememberNavController()
 
     NavHost(
@@ -39,7 +39,7 @@ fun MainNavigation(
         modifier = Modifier.padding(0.dp, 0.dp, 0.dp, paddingValues.calculateBottomPadding().div(2))
     ) {
         composable(Screens.Home.route) {
-            HomeScreen(homeViewModel,mainActivity)
+            HomeScreen(mainActivity)
         }
             // add more screen here if we want to use navigation
 

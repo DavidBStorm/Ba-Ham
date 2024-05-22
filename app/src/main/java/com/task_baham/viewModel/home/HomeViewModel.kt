@@ -29,12 +29,25 @@ class HomeViewModel @Inject constructor(
     private val application: MyApplication,
     private val mediaPagingSource: MediaRepository,
 ) : ViewModel() {
-    private var mediaFlow: Flow<PagingData<File>> = mediaPagingSource.getMedia()
 
+    var job: Job? = null
+    val showProgressBar: StateFlow<Boolean> get() = _showProgressBar
+    private val _showProgressBar = MutableStateFlow(true)
+
+    init {
+        dismissProgressBar()
+    }
 
     fun getMedia(): Flow<PagingData<File>> = mediaPagingSource.getMedia().cachedIn(viewModelScope)
 
     fun getAppContext(): Context = application.applicationContext
     fun getApp() = application
+
+    fun dismissProgressBar() { // just for UI purpose
+        job = viewModelScope.launch {
+            delay(2000)
+            _showProgressBar.value = false
+        }
+    }
 
 }
