@@ -12,7 +12,7 @@ const val LoadingTxt = "Loading ... "
 const val PickerTxtForDisplay = "Click for Display in full screen mode"
 const val ContentDescriptionThumbs = "video thumbnail"
 const val ContentDescriptionThumbsIcon = "Icon thumbnail"
-const val NavigationKey = "Nav-key"
+const val PageSize =50
 
 
 val iconPaddingValues = PaddingValues(6.dp, 4.dp)

@@ -41,13 +41,17 @@ class HomeViewModel @Inject constructor(
     fun getMedia(): Flow<PagingData<File>> = mediaPagingSource.getMedia().cachedIn(viewModelScope)
 
     fun getAppContext(): Context = application.applicationContext
-    fun getApp() = application
 
     fun dismissProgressBar() { // just for UI purpose
         job = viewModelScope.launch {
             delay(2000)
             _showProgressBar.value = false
         }
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        job?.cancel()
     }
 
 }

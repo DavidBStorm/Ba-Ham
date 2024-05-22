@@ -43,6 +43,7 @@ import java.io.File
 fun HomeScreen(
     mainActivity: MainActivity,
 ) {
+
     val homeViewModel: HomeViewModel = hiltViewModel()
     val shouldDisplayImage = remember { mutableStateOf(false) }
     val shouldDisplayVideo = remember { mutableStateOf(false) }
@@ -53,6 +54,7 @@ fun HomeScreen(
     val shouldDisplayProgress = homeViewModel.showProgressBar.collectAsState()
     if (shouldDisplayProgress.value)
         DisplayProgressBar(state = shouldDisplayProgress)
+
 
     Column(Modifier.fillMaxSize()) {
 

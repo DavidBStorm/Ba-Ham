@@ -21,7 +21,6 @@ import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.task.baham.R
 import com.task_baham.util.ContentDescriptionThumbs
-import com.task_baham.util.NavigationKey
 import java.io.File
 import java.util.concurrent.ThreadLocalRandom
 import kotlin.random.Random

@@ -22,7 +22,6 @@ class MediaPagingSource(val app: Application) : PagingSource<Int, File>() {
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, File> {
         return try {
             delay(1000)
-            Log.e("TAG", "load: in source", )
             val page = params.key ?: 1
             val response = getAllMediaFilesOnDevice(app)
             LoadResult.Page(

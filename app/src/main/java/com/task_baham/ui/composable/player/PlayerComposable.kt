@@ -32,7 +32,6 @@ import androidx.navigation.NavController
 import java.io.File
 
 
-@OptIn(UnstableApi::class)
 @Composable
 fun VideoPlayer(modifier: Modifier = Modifier, file: File) {
     val context = LocalContext.current
