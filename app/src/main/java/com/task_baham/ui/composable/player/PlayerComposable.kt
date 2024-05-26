@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -34,12 +35,25 @@ import java.io.File
 
 
 @Composable
-fun VideoPlayer(modifier: Modifier = Modifier, file: File) {
+fun VideoPlayer(
+    modifier: Modifier = Modifier,
+    file: File,
+    shouldDisplayVideo: MutableState<Boolean>
+) {
+
+
     val context = LocalContext.current
     val exoPlayer = remember {
         ExoPlayer.Builder(context).build().apply {
             this.prepare()
         }
+    }
+
+    BackHandler {
+        exoPlayer.stop()
+        exoPlayer.release()
+        shouldDisplayVideo.value = false
+
     }
 
     ConstraintLayout(modifier = modifier.background(Color.LightGray)) {

@@ -4,16 +4,13 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.media3.exoplayer.ExoPlayer
-import androidx.media3.exoplayer.SimpleExoPlayer
-import androidx.navigation.NavHostController
 import java.io.File
 
 @Composable
-fun PlayerScreen(file: File? = null) {
+fun PlayerScreen(file: File? = null, shouldDisplayVideo: MutableState<Boolean>) {
 
 
     Column(
@@ -21,6 +18,6 @@ fun PlayerScreen(file: File? = null) {
             .fillMaxSize()
             .background(Color.LightGray)
     ) {
-        VideoPlayer(file = file!!)
+        VideoPlayer(file = file!!, shouldDisplayVideo = shouldDisplayVideo)
     }
 }
