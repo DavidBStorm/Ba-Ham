@@ -73,10 +73,10 @@ fun HomeScreen(
         ) {
 
             items(
-                mediaLazyItems.itemCount,
-//                key = { todo
-//                    mediaLazyItems.itemSnapshotList.items[it].name.hashCode()
-//                }
+                mediaLazyItems.itemSnapshotList.items.size,
+                key = {
+                    mediaLazyItems.itemSnapshotList.items[it].name.hashCode()
+                }
             ) {
                 DisplayThumbs(
                     mediaLazyItems = mediaLazyItems,
