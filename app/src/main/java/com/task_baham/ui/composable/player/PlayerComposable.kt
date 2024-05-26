@@ -1,5 +1,6 @@
 package com.task_baham.ui.composable.player
 
+import android.util.Log
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.activity.compose.BackHandler
@@ -68,9 +69,15 @@ fun VideoPlayer(modifier: Modifier = Modifier, file: File) {
                     val mediaItem = MediaItem.fromUri(file.path)
                     player?.setMediaItem(mediaItem)
                     player?.prepare()
+                    player?.playWhenReady = true
 
                 }
             },
+            update = {
+                it.player = exoPlayer
+                it.player?.prepare()
+                it.player?.playWhenReady = true
+            }
         )
 
         Text(
@@ -89,4 +96,5 @@ fun VideoPlayer(modifier: Modifier = Modifier, file: File) {
         )
 
     }
+
 }

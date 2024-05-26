@@ -63,6 +63,7 @@ fun DisplayThumbs(
                 MediaStore.Video.Thumbnails.MINI_KIND
             )
 
+
             AsyncImage(
                 modifier = Modifier
                     .fillMaxSize()
